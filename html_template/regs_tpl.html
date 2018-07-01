@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Regs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table {
+            width: 1024px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    {% for reg in regs %}
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">{{reg.offset}}</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            {% for field in reg.fields %}
+            <tr>
+                <td>{{field.bits}}</td>
+                <td>{{field.name}}</td>
+                <td>{{field.attr}}</td>
+                <td>{{field.default}}</td>
+                <td>{{field.desc}}</td>
+            </tr>
+            {% endfor %}
+        </table>
+    {% endfor %}
+</body>
+</html>

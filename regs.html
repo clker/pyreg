@@ -1,0 +1,226 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Regs</title>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding: 5px;
+        }
+        table {
+            width: 1024px;
+            margin-left: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
+</head>
+<body>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">0</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[28, 24]</td>
+                <td>spi_rw_len</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>spi read write data bit length</td>
+            </tr>
+            
+            <tr>
+                <td>16</td>
+                <td>spi_d_rise_align</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>1: spi data is align with clock rising edge. 0: falling edge</td>
+            </tr>
+            
+            <tr>
+                <td>[15, 12]</td>
+                <td>out_cnt</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>adc lvds sampler clock cycle delay</td>
+            </tr>
+            
+            <tr>
+                <td>9</td>
+                <td>rx_dac_gain</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>dac gain</td>
+            </tr>
+            
+            <tr>
+                <td>8</td>
+                <td>is_10_bit</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>adc digital length</td>
+            </tr>
+            
+            <tr>
+                <td>[4, 0]</td>
+                <td>adc_clk_dly</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>adc lvds sampler clock fractional delay</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">4</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[31, 0]</td>
+                <td>spi_wdata</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>The data need to be written to spi</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">8</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>0</td>
+                <td>spi_wr_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>spi write trigger</td>
+            </tr>
+            
+            <tr>
+                <td>1</td>
+                <td>spi_rd_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>spi read trigger</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h10</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[27, 16]</td>
+                <td>adc_chb_result</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc channel B sampled result</td>
+            </tr>
+            
+            <tr>
+                <td>[11, 0]</td>
+                <td>adc_cha_result</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc channel A sampled result</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h14</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[27, 16]</td>
+                <td>adc_fco_result</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc fco sampled result</td>
+            </tr>
+            
+            <tr>
+                <td>[11, 0]</td>
+                <td>adc_dco_result</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc dco sampled result</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h20</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[31, 0]</td>
+                <td>spi_rdata</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The data read from spi</td>
+            </tr>
+            
+        </table>
+    
+</body>
+</html>
