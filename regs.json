@@ -19,13 +19,17 @@
     {
         "offset": 8,
         "fields": [
-            { "bits": 0,  "name": "spi_wr_en",    "attr":"wo",  "default": "0", "desc": "spi write trigger" },
-            { "bits": 1,  "name": "spi_rd_en",    "attr":"wo",  "default": "0", "desc": "spi read trigger" }
+            { "bits": 0,  "name": "spi_wr_en",     "attr":"wo",  "default": "0", "desc": "spi write trigger" },
+            { "bits": 1,  "name": "spi_rd_en",     "attr":"wo",  "default": "0", "desc": "spi read trigger" },
+            { "bits": 2,  "name": "adc_fifo_rd_en","attr":"wo",  "default": "0", "desc": "adc fifo rd_en to update the adc result" },
+            { "bits": 3,  "name": "adc_fifo_rst",  "attr":"wo",  "default": "0", "desc": "adc fifo reset to empty the fifo" }
         ]
     },
     {
         "offset": "'h10",
         "fields": [
+            { "bits": 31,      "name": "adc_fifo_empty",         "attr":"ro",  "default": "0", "desc": "The adc fifo empty flag" },
+            { "bits": 30,      "name": "adc_fifo_full",          "attr":"ro",  "default": "0", "desc": "The adc fifo full flag" },
             { "bits": [27,16], "name": "adc_chb_result",    "attr":"ro",  "default": "0", "desc": "The adc channel B sampled result" },
             { "bits": [11,0],  "name": "adc_cha_result",    "attr":"ro",  "default": "0", "desc": "The adc channel A sampled result" }
         ]

@@ -12,9 +12,8 @@
             padding: 5px;
         }
         table {
-            width: 1024px;
-            margin-left: 20px;
-            margin-bottom: 20px;
+            width: 1280px;
+            margin: 20px auto 20px auto;
         }
     </style>
 </head>
@@ -135,6 +134,22 @@
                 <td>spi read trigger</td>
             </tr>
             
+            <tr>
+                <td>2</td>
+                <td>adc_fifo_rd_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>adc fifo rd_en to update the adc result</td>
+            </tr>
+            
+            <tr>
+                <td>3</td>
+                <td>adc_fifo_rst</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>adc fifo reset to empty the fifo</td>
+            </tr>
+            
         </table>
     
         <table>
@@ -148,6 +163,22 @@
                 <th style="width:60px">Attr</th>
                 <th style="width:80px">Default</th>
                 <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>adc_fifo_empty</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc fifo empty flag</td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>adc_fifo_full</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The adc fifo full flag</td>
             </tr>
             
             <tr>

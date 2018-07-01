@@ -10,6 +10,10 @@ module regfile(
                 output reg [31:0] spi_wdata,
                 output reg [0:0] spi_wr_en,
                 output reg [0:0] spi_rd_en,
+                output reg [0:0] adc_fifo_rd_en,
+                output reg [0:0] adc_fifo_rst,
+                input [0:0] adc_fifo_empty,
+                input [0:0] adc_fifo_full,
                 input [11:0] adc_chb_result,
                 input [11:0] adc_cha_result,
                 input [11:0] adc_fco_result,
@@ -117,6 +121,8 @@ always @(posedge clk or negedge rstb) begin
     if(~rstb) begin
                     spi_wr_en <= 0;
                     spi_rd_en <= 0;
+                    adc_fifo_rd_en <= 0;
+                    adc_fifo_rst <= 0;
     end else if(wr_en) begin
         case(wr_addr)
                 0: begin
@@ -143,6 +149,8 @@ always @(posedge clk or negedge rstb) begin
                         if(be[0]) begin
                                     spi_wr_en[0:0] <= wdata[0:0];
                                     spi_rd_en[0:0] <= wdata[1:1];
+                                    adc_fifo_rd_en[0:0] <= wdata[2:2];
+                                    adc_fifo_rst[0:0] <= wdata[3:3];
                         end
                         if(be[1]) begin
                         end
@@ -185,6 +193,8 @@ always @(posedge clk or negedge rstb) begin
     end else begin
                     spi_wr_en <= 0;
                     spi_rd_en <= 0;
+                    adc_fifo_rd_en <= 0;
+                    adc_fifo_rst <= 0;
     end
 end
 
@@ -208,8 +218,12 @@ always @(posedge clk or negedge rstb) begin
             8: begin
                     rdata[0] <= spi_wr_en;
                     rdata[1] <= spi_rd_en;
+                    rdata[2] <= adc_fifo_rd_en;
+                    rdata[3] <= adc_fifo_rst;
             end
             'h10: begin
+                    rdata[31] <= adc_fifo_empty;
+                    rdata[30] <= adc_fifo_full;
                     rdata[27:16] <= adc_chb_result;
                     rdata[11:0] <= adc_cha_result;
             end
