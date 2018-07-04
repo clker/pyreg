@@ -10,6 +10,7 @@
             .spi_rd_en(spi_rd_en),
             .adc_fifo_rd_en(adc_fifo_rd_en),
             .adc_fifo_rst(adc_fifo_rst),
+            .ld_dac_val(ld_dac_val),
             .adc_fifo_empty(adc_fifo_empty),
             .adc_fifo_full(adc_fifo_full),
             .adc_chb_result(adc_chb_result),

@@ -12,6 +12,7 @@ module regfile(
                 output reg [0:0] spi_rd_en,
                 output reg [0:0] adc_fifo_rd_en,
                 output reg [0:0] adc_fifo_rst,
+                output reg [11:0] ld_dac_val,
                 input [0:0] adc_fifo_empty,
                 input [0:0] adc_fifo_full,
                 input [11:0] adc_chb_result,
@@ -40,6 +41,7 @@ always @(posedge clk or negedge rstb) begin
                     is_10_bit <= 0;
                     adc_clk_dly <= 0;
                     spi_wdata <= 0;
+                    ld_dac_val <= 0;
     end else if(wr_en) begin
         case(wr_addr)
                 0: begin
@@ -76,6 +78,18 @@ always @(posedge clk or negedge rstb) begin
                         if(be[0]) begin
                         end
                         if(be[1]) begin
+                        end
+                        if(be[2]) begin
+                        end
+                        if(be[3]) begin
+                        end
+                end
+                'hc: begin
+                        if(be[0]) begin
+                                    ld_dac_val[7:0] <= wdata[7:0];
+                        end
+                        if(be[1]) begin
+                                    ld_dac_val[11:8] <= wdata[11:8];
                         end
                         if(be[2]) begin
                         end
@@ -159,6 +173,16 @@ always @(posedge clk or negedge rstb) begin
                         if(be[3]) begin
                         end
                 end
+                'hc: begin
+                        if(be[0]) begin
+                        end
+                        if(be[1]) begin
+                        end
+                        if(be[2]) begin
+                        end
+                        if(be[3]) begin
+                        end
+                end
                 'h10: begin
                         if(be[0]) begin
                         end
@@ -220,6 +244,9 @@ always @(posedge clk or negedge rstb) begin
                     rdata[1] <= spi_rd_en;
                     rdata[2] <= adc_fifo_rd_en;
                     rdata[3] <= adc_fifo_rst;
+            end
+            'hc: begin
+                    rdata[11:0] <= ld_dac_val;
             end
             'h10: begin
                     rdata[31] <= adc_fifo_empty;
