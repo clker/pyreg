@@ -19,5 +19,5 @@
             .adc_cha_result(adc_cha_result),
             .adc_fco_result(adc_fco_result),
             .adc_dco_result(adc_dco_result),
-            .spi_wdata1(spi_wdata1),
+            .spi_rdata1(spi_rdata1),
             .spi_rdata(spi_rdata),

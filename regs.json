@@ -52,7 +52,7 @@
     {
         "offset": "'h18",
         "fields": [
-            { "bits": [31,0],  "name": "spi_wdata1",       "attr":"rw",  "default": "0", "desc": "The data need to be written to spi" }
+            { "bits": [31,0],  "name": "spi_rdata1",       "attr":"ro",  "default": "0", "desc": "The data need to be written to spi" }
         ]
     },
     {

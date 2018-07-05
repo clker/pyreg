@@ -21,7 +21,7 @@ module regfile(
                 input [11:0] adc_cha_result,
                 input [11:0] adc_fco_result,
                 input [11:0] adc_dco_result,
-                output reg [31:0] spi_wdata1,
+                input [31:0] spi_rdata1,
                 input [31:0] spi_rdata,
     input wr_en,
     input [3:0] be,
@@ -47,7 +47,6 @@ always @(posedge clk or negedge rstb) begin
                     spi_wdata <= 0;
                     ld_dac_en <= 0;
                     ld_dac_val <= 0;
-                    spi_wdata1 <= 0;
     end else if(wr_en) begin
         case(wr_addr)
                 0: begin
@@ -126,16 +125,12 @@ always @(posedge clk or negedge rstb) begin
                 end
                 'h18: begin
                         if(be[0]) begin
-                                    spi_wdata1[7:0] <= wdata[7:0];
                         end
                         if(be[1]) begin
-                                    spi_wdata1[15:8] <= wdata[15:8];
                         end
                         if(be[2]) begin
-                                    spi_wdata1[23:16] <= wdata[23:16];
                         end
                         if(be[3]) begin
-                                    spi_wdata1[31:24] <= wdata[31:24];
                         end
                 end
                 'h20: begin
@@ -293,7 +288,7 @@ always @(posedge clk or negedge rstb) begin
                     rdata[11:0] <= adc_dco_result;
             end
             'h18: begin
-                    rdata[31:0] <= spi_wdata1;
+                    rdata[31:0] <= spi_rdata1;
             end
             'h20: begin
                     rdata[31:0] <= spi_rdata;
