@@ -1,5 +1,6 @@
 
             .spi_rw_len(spi_rw_len),
+            .spi_ch_sel(spi_ch_sel),
             .spi_d_rise_align(spi_d_rise_align),
             .out_cnt(out_cnt),
             .rx_dac_gain(rx_dac_gain),
@@ -10,6 +11,7 @@
             .spi_rd_en(spi_rd_en),
             .adc_fifo_rd_en(adc_fifo_rd_en),
             .adc_fifo_rst(adc_fifo_rst),
+            .ld_dac_en(ld_dac_en),
             .ld_dac_val(ld_dac_val),
             .adc_fifo_empty(adc_fifo_empty),
             .adc_fifo_full(adc_fifo_full),
@@ -17,4 +19,5 @@
             .adc_cha_result(adc_cha_result),
             .adc_fco_result(adc_fco_result),
             .adc_dco_result(adc_dco_result),
+            .spi_wdata1(spi_wdata1),
             .spi_rdata(spi_rdata),

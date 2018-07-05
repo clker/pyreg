@@ -29,6 +29,7 @@
     {
         "offset": "'hc",
         "fields": [
+			{ "bits": [31,28],  "name": "ld_dac_en",    "attr":"rw",  "default": "0", "desc": "Laser dac digital value enable" },
             { "bits": [11,0],  "name": "ld_dac_val",    "attr":"rw",  "default": "0", "desc": "Laser dac digital value" }
         ]
     },

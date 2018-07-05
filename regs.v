@@ -2,16 +2,18 @@ module regfile(
     input clk,
     input rstb,
                 output reg [4:0] spi_rw_len,
+                output reg [0:0] spi_ch_sel,
                 output reg [0:0] spi_d_rise_align,
                 output reg [3:0] out_cnt,
                 output reg [0:0] rx_dac_gain,
                 output reg [0:0] is_10_bit,
-                output reg [4:0] adc_clk_dly,
+                output reg [5:0] adc_clk_dly,
                 output reg [31:0] spi_wdata,
                 output reg [0:0] spi_wr_en,
                 output reg [0:0] spi_rd_en,
                 output reg [0:0] adc_fifo_rd_en,
                 output reg [0:0] adc_fifo_rst,
+                output reg [3:0] ld_dac_en,
                 output reg [11:0] ld_dac_val,
                 input [0:0] adc_fifo_empty,
                 input [0:0] adc_fifo_full,
@@ -19,6 +21,7 @@ module regfile(
                 input [11:0] adc_cha_result,
                 input [11:0] adc_fco_result,
                 input [11:0] adc_dco_result,
+                output reg [31:0] spi_wdata1,
                 input [31:0] spi_rdata,
     input wr_en,
     input [3:0] be,
@@ -35,18 +38,21 @@ module regfile(
 always @(posedge clk or negedge rstb) begin
     if(~rstb) begin
                     spi_rw_len <= 0;
+                    spi_ch_sel <= 0;
                     spi_d_rise_align <= 0;
                     out_cnt <= 0;
                     rx_dac_gain <= 0;
                     is_10_bit <= 0;
                     adc_clk_dly <= 0;
                     spi_wdata <= 0;
+                    ld_dac_en <= 0;
                     ld_dac_val <= 0;
+                    spi_wdata1 <= 0;
     end else if(wr_en) begin
         case(wr_addr)
                 0: begin
                         if(be[0]) begin
-                                    adc_clk_dly[4:0] <= wdata[4:0];
+                                    adc_clk_dly[5:0] <= wdata[5:0];
                         end
                         if(be[1]) begin
                                     out_cnt[3:0] <= wdata[15:12];
@@ -54,6 +60,7 @@ always @(posedge clk or negedge rstb) begin
                                     is_10_bit[0:0] <= wdata[8:8];
                         end
                         if(be[2]) begin
+                                    spi_ch_sel[0:0] <= wdata[17:17];
                                     spi_d_rise_align[0:0] <= wdata[16:16];
                         end
                         if(be[3]) begin
@@ -94,6 +101,7 @@ always @(posedge clk or negedge rstb) begin
                         if(be[2]) begin
                         end
                         if(be[3]) begin
+                                    ld_dac_en[3:0] <= wdata[31:28];
                         end
                 end
                 'h10: begin
@@ -114,6 +122,20 @@ always @(posedge clk or negedge rstb) begin
                         if(be[2]) begin
                         end
                         if(be[3]) begin
+                        end
+                end
+                'h18: begin
+                        if(be[0]) begin
+                                    spi_wdata1[7:0] <= wdata[7:0];
+                        end
+                        if(be[1]) begin
+                                    spi_wdata1[15:8] <= wdata[15:8];
+                        end
+                        if(be[2]) begin
+                                    spi_wdata1[23:16] <= wdata[23:16];
+                        end
+                        if(be[3]) begin
+                                    spi_wdata1[31:24] <= wdata[31:24];
                         end
                 end
                 'h20: begin
@@ -203,6 +225,16 @@ always @(posedge clk or negedge rstb) begin
                         if(be[3]) begin
                         end
                 end
+                'h18: begin
+                        if(be[0]) begin
+                        end
+                        if(be[1]) begin
+                        end
+                        if(be[2]) begin
+                        end
+                        if(be[3]) begin
+                        end
+                end
                 'h20: begin
                         if(be[0]) begin
                         end
@@ -230,11 +262,12 @@ always @(posedge clk or negedge rstb) begin
         case(rd_addr)
             0: begin
                     rdata[28:24] <= spi_rw_len;
+                    rdata[17] <= spi_ch_sel;
                     rdata[16] <= spi_d_rise_align;
                     rdata[15:12] <= out_cnt;
                     rdata[9] <= rx_dac_gain;
                     rdata[8] <= is_10_bit;
-                    rdata[4:0] <= adc_clk_dly;
+                    rdata[5:0] <= adc_clk_dly;
             end
             4: begin
                     rdata[31:0] <= spi_wdata;
@@ -246,6 +279,7 @@ always @(posedge clk or negedge rstb) begin
                     rdata[3] <= adc_fifo_rst;
             end
             'hc: begin
+                    rdata[31:28] <= ld_dac_en;
                     rdata[11:0] <= ld_dac_val;
             end
             'h10: begin
@@ -257,6 +291,9 @@ always @(posedge clk or negedge rstb) begin
             'h14: begin
                     rdata[27:16] <= adc_fco_result;
                     rdata[11:0] <= adc_dco_result;
+            end
+            'h18: begin
+                    rdata[31:0] <= spi_wdata1;
             end
             'h20: begin
                     rdata[31:0] <= spi_rdata;

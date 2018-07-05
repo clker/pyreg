@@ -41,6 +41,14 @@
             </tr>
             
             <tr>
+                <td>17</td>
+                <td>spi_ch_sel</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>0: send SPI to RX_DAC(AD5689), 1: send SPI to LADC(MAX11190)</td>
+            </tr>
+            
+            <tr>
                 <td>16</td>
                 <td>spi_d_rise_align</td>
                 <td>rw</td>
@@ -73,7 +81,7 @@
             </tr>
             
             <tr>
-                <td>[4, 0]</td>
+                <td>[5, 0]</td>
                 <td>adc_clk_dly</td>
                 <td>rw</td>
                 <td>0</td>
@@ -166,6 +174,14 @@
             </tr>
             
             <tr>
+                <td>[31, 28]</td>
+                <td>ld_dac_en</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>Laser dac digital value enable</td>
+            </tr>
+            
+            <tr>
                 <td>[11, 0]</td>
                 <td>ld_dac_val</td>
                 <td>rw</td>
@@ -249,6 +265,29 @@
                 <td>ro</td>
                 <td>0</td>
                 <td>The adc dco sampled result</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h18</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[31, 0]</td>
+                <td>spi_wdata1</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>The data need to be written to spi</td>
             </tr>
             
         </table>
