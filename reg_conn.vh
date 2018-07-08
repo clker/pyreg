@@ -1,7 +1,9 @@
 
             .spi_rw_len(spi_rw_len),
+            .spi_rcv_rise_align(spi_rcv_rise_align),
+            .spi_busy(spi_busy),
             .spi_ch_sel(spi_ch_sel),
-            .spi_d_rise_align(spi_d_rise_align),
+            .spi_send_rise_align(spi_send_rise_align),
             .out_cnt(out_cnt),
             .rx_dac_gain(rx_dac_gain),
             .is_10_bit(is_10_bit),

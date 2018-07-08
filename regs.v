@@ -2,8 +2,10 @@ module regfile(
     input clk,
     input rstb,
                 output reg [4:0] spi_rw_len,
+                output reg [0:0] spi_rcv_rise_align,
+                input [0:0] spi_busy,
                 output reg [0:0] spi_ch_sel,
-                output reg [0:0] spi_d_rise_align,
+                output reg [0:0] spi_send_rise_align,
                 output reg [3:0] out_cnt,
                 output reg [0:0] rx_dac_gain,
                 output reg [0:0] is_10_bit,
@@ -38,8 +40,9 @@ module regfile(
 always @(posedge clk or negedge rstb) begin
     if(~rstb) begin
                     spi_rw_len <= 0;
+                    spi_rcv_rise_align <= 0;
                     spi_ch_sel <= 0;
-                    spi_d_rise_align <= 0;
+                    spi_send_rise_align <= 0;
                     out_cnt <= 0;
                     rx_dac_gain <= 0;
                     is_10_bit <= 0;
@@ -59,8 +62,9 @@ always @(posedge clk or negedge rstb) begin
                                     is_10_bit[0:0] <= wdata[8:8];
                         end
                         if(be[2]) begin
+                                    spi_rcv_rise_align[0:0] <= wdata[19:19];
                                     spi_ch_sel[0:0] <= wdata[17:17];
-                                    spi_d_rise_align[0:0] <= wdata[16:16];
+                                    spi_send_rise_align[0:0] <= wdata[16:16];
                         end
                         if(be[3]) begin
                                     spi_rw_len[4:0] <= wdata[28:24];
@@ -257,8 +261,10 @@ always @(posedge clk or negedge rstb) begin
         case(rd_addr)
             0: begin
                     rdata[28:24] <= spi_rw_len;
+                    rdata[19] <= spi_rcv_rise_align;
+                    rdata[18] <= spi_busy;
                     rdata[17] <= spi_ch_sel;
-                    rdata[16] <= spi_d_rise_align;
+                    rdata[16] <= spi_send_rise_align;
                     rdata[15:12] <= out_cnt;
                     rdata[9] <= rx_dac_gain;
                     rdata[8] <= is_10_bit;

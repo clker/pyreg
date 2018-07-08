@@ -3,8 +3,10 @@
         "offset": 0,
         "fields": [
             { "bits": [28,24],  "name": "spi_rw_len",           "attr": "rw", "default": "0", "desc": "spi read write data bit length" },
-            { "bits": 17,       "name": "spi_ch_sel",              "attr": "rw", "default": "0", "desc": "0: send SPI to RX_DAC(AD5689), 1: send SPI to LADC(MAX11190)" },
-            { "bits": 16,       "name": "spi_d_rise_align",     "attr": "rw", "default": "0", "desc": "1: spi data is align with clock rising edge. 0: falling edge" },
+            { "bits": 19,       "name": "spi_rcv_rise_align",   "attr": "rw", "default": "0", "desc": "1: spi recieve data align with sck rising edge. 0: falling edge" },
+			{ "bits": 18,       "name": "spi_busy",             "attr": "ro", "default": "0", "desc": "spi busy state bit" },
+            { "bits": 17,       "name": "spi_ch_sel",           "attr": "rw", "default": "0", "desc": "0: send SPI to RX_DAC(AD5689), 1: send SPI to LADC(MAX11190)" },
+            { "bits": 16,       "name": "spi_send_rise_align",  "attr": "rw", "default": "0", "desc": "1: spi send data align with sck rising edge. 0: falling edge" },
             { "bits": [15,12],  "name": "out_cnt",              "attr": "rw", "default": "0", "desc": "adc lvds sampler clock cycle delay" },
             { "bits": 9,        "name": "rx_dac_gain",          "attr": "rw", "default": "0", "desc": "dac gain" },
             { "bits": 8,        "name": "is_10_bit",            "attr": "rw", "default": "0", "desc": "adc digital length" },
