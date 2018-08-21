@@ -33,22 +33,6 @@
             </tr>
             
             <tr>
-                <td>[28, 24]</td>
-                <td>spi_rw_len</td>
-                <td>rw</td>
-                <td>0</td>
-                <td>spi read write data bit length</td>
-            </tr>
-            
-            <tr>
-                <td>16</td>
-                <td>spi_d_rise_align</td>
-                <td>rw</td>
-                <td>0</td>
-                <td>1: spi data is align with clock rising edge. 0: falling edge</td>
-            </tr>
-            
-            <tr>
                 <td>[15, 12]</td>
                 <td>out_cnt</td>
                 <td>rw</td>
@@ -73,81 +57,11 @@
             </tr>
             
             <tr>
-                <td>[4, 0]</td>
+                <td>[5, 0]</td>
                 <td>adc_clk_dly</td>
                 <td>rw</td>
                 <td>0</td>
                 <td>adc lvds sampler clock fractional delay</td>
-            </tr>
-            
-        </table>
-    
-        <table>
-            <tr>
-                <td >Offset</td>
-                <td colspan="4">4</td>
-            </tr>
-            <tr>
-                <th style="width:80px">Bits</th>
-                <th style="width:150px">Field Name</th>
-                <th style="width:60px">Attr</th>
-                <th style="width:80px">Default</th>
-                <th>Description</th>
-            </tr>
-            
-            <tr>
-                <td>[31, 0]</td>
-                <td>spi_wdata</td>
-                <td>rw</td>
-                <td>0</td>
-                <td>The data need to be written to spi</td>
-            </tr>
-            
-        </table>
-    
-        <table>
-            <tr>
-                <td >Offset</td>
-                <td colspan="4">8</td>
-            </tr>
-            <tr>
-                <th style="width:80px">Bits</th>
-                <th style="width:150px">Field Name</th>
-                <th style="width:60px">Attr</th>
-                <th style="width:80px">Default</th>
-                <th>Description</th>
-            </tr>
-            
-            <tr>
-                <td>0</td>
-                <td>spi_wr_en</td>
-                <td>wo</td>
-                <td>0</td>
-                <td>spi write trigger</td>
-            </tr>
-            
-            <tr>
-                <td>1</td>
-                <td>spi_rd_en</td>
-                <td>wo</td>
-                <td>0</td>
-                <td>spi read trigger</td>
-            </tr>
-            
-            <tr>
-                <td>2</td>
-                <td>adc_fifo_rd_en</td>
-                <td>wo</td>
-                <td>0</td>
-                <td>adc fifo rd_en to update the adc result</td>
-            </tr>
-            
-            <tr>
-                <td>3</td>
-                <td>adc_fifo_rst</td>
-                <td>wo</td>
-                <td>0</td>
-                <td>adc fifo reset to empty the fifo</td>
             </tr>
             
         </table>
@@ -163,6 +77,14 @@
                 <th style="width:60px">Attr</th>
                 <th style="width:80px">Default</th>
                 <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[31, 28]</td>
+                <td>ld_dac_en</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>Laser dac digital value enable</td>
             </tr>
             
             <tr>
@@ -186,22 +108,6 @@
                 <th style="width:60px">Attr</th>
                 <th style="width:80px">Default</th>
                 <th>Description</th>
-            </tr>
-            
-            <tr>
-                <td>31</td>
-                <td>adc_fifo_empty</td>
-                <td>ro</td>
-                <td>0</td>
-                <td>The adc fifo empty flag</td>
-            </tr>
-            
-            <tr>
-                <td>30</td>
-                <td>adc_fifo_full</td>
-                <td>ro</td>
-                <td>0</td>
-                <td>The adc fifo full flag</td>
             </tr>
             
             <tr>
@@ -267,11 +173,214 @@
             </tr>
             
             <tr>
-                <td>[31, 0]</td>
-                <td>spi_rdata</td>
+                <td>31</td>
+                <td>adc_spi_wr_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>write 1 to trigger adc spi write</td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>adc_spi_rd_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>write 1 to wr_en and rd_en at the same time to trigger adc spi read</td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>adc_spi_busy</td>
                 <td>ro</td>
                 <td>0</td>
-                <td>The data read from spi</td>
+                <td>adc spi interface busy status</td>
+            </tr>
+            
+            <tr>
+                <td>[23, 0]</td>
+                <td>adc_spi_wdata</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>The data need to be written to spi of adc</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h24</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[12, 8]</td>
+                <td>adc_spi_wr_len</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>adc spi write length; when do write, should be 24, when do read, should be 16</td>
+            </tr>
+            
+            <tr>
+                <td>[7, 0]</td>
+                <td>adc_spi_rdata</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>adc spi read data</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h28</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>rx_dac_spi_wr_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>write 1 to trigger rx_dac spi write</td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>rx_dac_spi_busy</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>rx_dac spi interface busy status</td>
+            </tr>
+            
+            <tr>
+                <td>[23, 0]</td>
+                <td>rx_dac_spi_wdata</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>The data need to be written to spi of rx_dac</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h2c</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>l_adc_spi_rd_en</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>write 1 to trigger l_adc spi read</td>
+            </tr>
+            
+            <tr>
+                <td>29</td>
+                <td>l_adc_spi_busy</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>l_adc spi interface busy status</td>
+            </tr>
+            
+            <tr>
+                <td>[27, 14]</td>
+                <td>l_adc_spi_rdata1</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The chb data read back from spi</td>
+            </tr>
+            
+            <tr>
+                <td>[13, 0]</td>
+                <td>l_adc_spi_rdata</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The cha data read back from spi</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h40</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>[31, 0]</td>
+                <td>timer_l</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The timer LSB. Clock cycles from timer_rst</td>
+            </tr>
+            
+        </table>
+    
+        <table>
+            <tr>
+                <td >Offset</td>
+                <td colspan="4">&#39;h44</td>
+            </tr>
+            <tr>
+                <th style="width:80px">Bits</th>
+                <th style="width:150px">Field Name</th>
+                <th style="width:60px">Attr</th>
+                <th style="width:80px">Default</th>
+                <th>Description</th>
+            </tr>
+            
+            <tr>
+                <td>31</td>
+                <td>timer_rst</td>
+                <td>wo</td>
+                <td>0</td>
+                <td>write 1 to reset timer_l and timer_h</td>
+            </tr>
+            
+            <tr>
+                <td>30</td>
+                <td>timer_stop</td>
+                <td>rw</td>
+                <td>0</td>
+                <td>write 1 to stop timer_l and timer_h</td>
+            </tr>
+            
+            <tr>
+                <td>[29, 0]</td>
+                <td>timer_h</td>
+                <td>ro</td>
+                <td>0</td>
+                <td>The timer MSB. Clock cycles from timer_rst</td>
             </tr>
             
         </table>

@@ -2,9 +2,6 @@
     {
         "offset": 0,
         "fields": [
-            { "bits": [28,24],  "name": "spi_rw_len",           "attr": "rw", "default": "0", "desc": "spi read write data bit length" },
-            { "bits": 17,       "name": "spi_ch_sel",              "attr": "rw", "default": "0", "desc": "0: send SPI to RX_DAC(AD5689), 1: send SPI to LADC(MAX11190)" },
-            { "bits": 16,       "name": "spi_d_rise_align",     "attr": "rw", "default": "0", "desc": "1: spi data is align with clock rising edge. 0: falling edge" },
             { "bits": [15,12],  "name": "out_cnt",              "attr": "rw", "default": "0", "desc": "adc lvds sampler clock cycle delay" },
             { "bits": 9,        "name": "rx_dac_gain",          "attr": "rw", "default": "0", "desc": "dac gain" },
             { "bits": 8,        "name": "is_10_bit",            "attr": "rw", "default": "0", "desc": "adc digital length" },
@@ -12,31 +9,15 @@
         ]
     },
     {
-        "offset": 4,
-        "fields": [
-            { "bits": [31,0],  "name": "spi_wdata",    "attr":"rw",  "default": "0", "desc": "The data need to be written to spi" }
-        ]
-    },
-    {
-        "offset": 8,
-        "fields": [
-            { "bits": 0,  "name": "spi_wr_en",     "attr":"wo",  "default": "0", "desc": "spi write trigger" },
-            { "bits": 1,  "name": "spi_rd_en",     "attr":"wo",  "default": "0", "desc": "spi read trigger" },
-            { "bits": 2,  "name": "adc_fifo_rd_en","attr":"wo",  "default": "0", "desc": "adc fifo rd_en to update the adc result" },
-            { "bits": 3,  "name": "adc_fifo_rst",  "attr":"wo",  "default": "0", "desc": "adc fifo reset to empty the fifo" }
-        ]
-    },
-    {
         "offset": "'hc",
         "fields": [
+			{ "bits": [31,28],  "name": "ld_dac_en",    "attr":"rw",  "default": "0", "desc": "Laser dac digital value enable" },
             { "bits": [11,0],  "name": "ld_dac_val",    "attr":"rw",  "default": "0", "desc": "Laser dac digital value" }
         ]
     },
     {
         "offset": "'h10",
         "fields": [
-            { "bits": 31,      "name": "adc_fifo_empty",         "attr":"ro",  "default": "0", "desc": "The adc fifo empty flag" },
-            { "bits": 30,      "name": "adc_fifo_full",          "attr":"ro",  "default": "0", "desc": "The adc fifo full flag" },
             { "bits": [27,16], "name": "adc_chb_result",    "attr":"ro",  "default": "0", "desc": "The adc channel B sampled result" },
             { "bits": [11,0],  "name": "adc_cha_result",    "attr":"ro",  "default": "0", "desc": "The adc channel A sampled result" }
         ]
@@ -49,15 +30,50 @@
         ]
     },
     {
-        "offset": "'h18",
+        "offset": "'h20",
         "fields": [
-            { "bits": [31,0],  "name": "spi_wdata1",       "attr":"rw",  "default": "0", "desc": "The data need to be written to spi" }
+            { "bits": 31,  "name": "adc_spi_wr_en",    "attr":"wo",  "default": "0", "desc": "write 1 to trigger adc spi write" },
+            { "bits": 30,  "name": "adc_spi_rd_en",    "attr":"wo",  "default": "0", "desc": "write 1 to wr_en and rd_en at the same time to trigger adc spi read" },
+            { "bits": 29,  "name": "adc_spi_busy",     "attr":"ro",  "default": "0", "desc": "adc spi interface busy status" },
+            { "bits": [23,0],  "name": "adc_spi_wdata",    "attr":"rw",  "default": "0", "desc": "The data need to be written to spi of adc" }
         ]
     },
     {
-        "offset": "'h20",
+        "offset": "'h24",
         "fields": [
-            { "bits": [31,0],  "name": "spi_rdata",    "attr":"ro",  "default": "0", "desc": "The data read from spi" }
+            { "bits": [12,8],  "name": "adc_spi_wr_len",     "attr":"rw",  "default": "0", "desc": "adc spi write length; when do write, should be 24, when do read, should be 16" },
+            { "bits": [7,0],  "name": "adc_spi_rdata",     "attr":"ro",  "default": "0", "desc": "adc spi read data" }
+        ]
+    },
+    {
+        "offset": "'h28",
+        "fields": [
+            { "bits": 31,  "name": "rx_dac_spi_wr_en",    "attr":"wo",  "default": "0", "desc": "write 1 to trigger rx_dac spi write" },
+            { "bits": 29,  "name": "rx_dac_spi_busy",     "attr":"ro",  "default": "0", "desc": "rx_dac spi interface busy status" },
+            { "bits": [23,0],  "name": "rx_dac_spi_wdata",    "attr":"rw",  "default": "0", "desc": "The data need to be written to spi of rx_dac" }
+        ]
+    },
+    {
+        "offset": "'h2c",
+        "fields": [
+            { "bits": 30,  "name": "l_adc_spi_rd_en",    "attr":"wo",  "default": "0", "desc": "write 1 to trigger l_adc spi read" },
+            { "bits": 29,  "name": "l_adc_spi_busy",     "attr":"ro",  "default": "0", "desc": "l_adc spi interface busy status" },
+            { "bits": [27,14],  "name": "l_adc_spi_rdata1",    "attr":"ro",  "default": "0", "desc": "The chb data read back from spi" },
+            { "bits": [13,0],  "name": "l_adc_spi_rdata",    "attr":"ro",  "default": "0", "desc": "The cha data read back from spi" }
+        ]
+    },
+    {
+        "offset": "'h40",
+        "fields": [
+            { "bits": [31,0], "name": "timer_l",    "attr":"ro",  "default": "0", "desc": "The timer LSB. Clock cycles from timer_rst" }
+        ]
+    },
+    {
+        "offset": "'h44",
+        "fields": [
+            { "bits": 31,  "name": "timer_rst",    "attr":"wo",  "default": "0", "desc": "write 1 to reset timer_l and timer_h" },
+            { "bits": 30,  "name": "timer_stop",    "attr":"rw",  "default": "0", "desc": "write 1 to stop timer_l and timer_h" },
+            { "bits": [29,0], "name": "timer_h",    "attr":"ro",  "default": "0", "desc": "The timer MSB. Clock cycles from timer_rst" }
         ]
     }
 ]

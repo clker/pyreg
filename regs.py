@@ -119,6 +119,9 @@ def gen_from_json(json_fn):
     with open('reg_conn.vh','w') as f:
         f.write(reg_conn)
 
+    reg_decl = render('reg_decl_tpl.v',{'regs':new_regs})
+    with open('reg_decl.vh','w') as f:
+        f.write(reg_decl)
 
 
 def render(tpl,context):

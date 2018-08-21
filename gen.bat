@@ -1,0 +1,1 @@
+python regs.py regs.json
