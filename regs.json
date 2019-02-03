@@ -1,0 +1,8 @@
+[
+    {
+        "offset": "'h0",
+        "fields":[
+            { "bits": 0, "name": "a", "attr" : "rw", "default": "0","desc": ""}
+        ]
+    }
+]

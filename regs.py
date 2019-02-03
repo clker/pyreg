@@ -8,7 +8,10 @@ env = Environment(
         loader=FileSystemLoader([
             os.path.join(os.getcwd(),'html_template'),
             os.path.join(os.getcwd(),'verilog_template')]),
-        autoescape=select_autoescape(['html', 'xml'])
+        autoescape=select_autoescape(['html', 'xml']),
+        trim_blocks = True,
+        lstrip_blocks = True,
+        keep_trailing_newline = True,
 )
 
 def get_object_from_json(json_fn):
@@ -107,20 +110,20 @@ def reorg_regs(regs):
 def gen_from_json(json_fn):
     regs = get_object_from_json(json_fn)
     html = render('regs_tpl.html',{'regs':regs})
-    with open('regs.html','w') as f:
+    with open(os.getcwd() + os.sep + "output" + os.sep + 'regs.html','w') as f:
         f.write(html)
 
     new_regs = reorg_regs(regs)
     verilog = render('regs_tpl.v',{'regs':new_regs})
-    with open('regs.v','w') as f:
+    with open(os.getcwd() + os.sep + "output" + os.sep + 'regs.v','w') as f:
         f.write(verilog)
 
     reg_conn = render('reg_conn_tpl.v',{'regs':new_regs})
-    with open('reg_conn.vh','w') as f:
+    with open(os.getcwd() + os.sep + "output" + os.sep + 'reg_conn.vh','w') as f:
         f.write(reg_conn)
 
     reg_decl = render('reg_decl_tpl.v',{'regs':new_regs})
-    with open('reg_decl.vh','w') as f:
+    with open(os.getcwd() + os.sep + "output" + os.sep + 'reg_decl.vh','w') as f:
         f.write(reg_decl)
 
 
