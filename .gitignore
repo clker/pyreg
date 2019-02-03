@@ -1,5 +1,7 @@
 *~
 .*
+*.json
+!regs_sample.json
 !.gitignore
 output
 *__pycache__*

@@ -4,5 +4,12 @@
         "fields":[
             { "bits": 0, "name": "a", "attr" : "rw", "default": "0","desc": ""}
         ]
+    },
+    {
+        "offset": "'h4",
+        "fields":[
+            { "bits": 0, "name": "b", "attr" : "rw", "default": "0","desc": ""}
+        ]
     }
+
 ]
