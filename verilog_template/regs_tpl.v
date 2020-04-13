@@ -40,7 +40,7 @@ always @(posedge clk or negedge rstb) begin
                 if(be[{{loop.index0}}]) begin
                             {% for field in b_fields %}
                                 {% if field['attr'] == 'rw' %}
-                    {{field['name']}}{{field['field_range']}} <= wdata{{field['wdata_range']}};
+                    {{field.name}}{{field['field_range']}} <= wdata{{field['wdata_range']}};
                                 {% endif %}
                             {% endfor %}
                 end
@@ -71,7 +71,7 @@ always @(posedge clk or negedge rstb) begin
                 if(be[{{loop.index0}}]) begin
                             {% for field in b_fields %}
                                 {% if field['attr'] == 'wo' %}
-                    {{field['name']}}{{field['field_range']}} <= wdata{{field['wdata_range']}};
+                    {{field.name}}{{field['field_range']}} <= wdata{{field['wdata_range']}};
                                 {% endif %}
                             {% endfor %}
                 end

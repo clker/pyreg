@@ -25,6 +25,7 @@ def reorg_regs(regs):
         new_reg = {'offset':reg['offset'],'fields':reg['fields']}
         #update length
         for field in reg['fields']:
+            field['name'] += ('_' + field['attr'])
             if type(field['bits']) == type(0):
                 field.update({'len':1})
                 field.update({'rd_range':'[%d]'%field['bits']})
@@ -108,6 +109,8 @@ def reorg_regs(regs):
     return new_regs
 
 def gen_from_json(json_fn):
+    if 'output' not in os.listdir():
+        os.system('mkdir output')
     regs = get_object_from_json(json_fn)
     html = render('regs_tpl.html',{'regs':regs})
     with open(os.getcwd() + os.sep + "output" + os.sep + 'regs.html','w') as f:
